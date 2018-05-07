@@ -2,3 +2,25 @@ body {
     // 文字サイズの自動調整を無効にする
     text-size-adjust: 100%;
 }
+.button-area{
+    text-align: center;
+}
+.content1{
+    margin: 0 auto;
+    padding: 40px 0;
+}
+.content1--img{
+    width: 100%;
+    height: 500px;
+    background: url("/image/sample1.png") no-repeat center bottom;
+    background-size: cover;
+}
+.content1--ttl{
+    text-align: center;
+    height: 100px;
+    line-height: 100px;
+}
+.content1--txt{
+    width: 75%;
+    margin: 0 auto;
+}
