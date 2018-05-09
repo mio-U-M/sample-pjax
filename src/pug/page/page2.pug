@@ -9,7 +9,10 @@ prepend config-block
 //- append javascript-block
 
 block content-block
-  nav.button-area
-    a.content--back(href="index.html") Back
-    a.content--next(href="page3.html") Next
-  +content("2")
+  main.content
+    #loadwrapper
+      .load
+        nav.button-area
+          button.content--back(data-href="index.html") Back
+          button.content--next(data-href="page3.html") Next
+        +content("2")
