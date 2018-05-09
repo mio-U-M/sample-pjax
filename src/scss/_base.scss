@@ -39,7 +39,7 @@ body {
     margin: 0 auto;
 }
 .content--back{
-    @include link-style-reset;
+    @include button-style-reset;
     font-family: 'PT Serif', serif;
     font-size: 25px;
     padding: 10px 20px;
@@ -48,7 +48,7 @@ body {
     }
 }
 .content--next{
-    @include link-style-reset;
+    @include button-style-reset;
     font-family: 'PT Serif', serif;
     font-size: 25px;
     padding: 10px 20px;

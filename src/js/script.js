@@ -1,32 +1,31 @@
 import { BASE_DIR } from '../constants.yml';
-import $ from 'jquery';
-
-
-document.querySelector('.content--back').addEventListener('click', (evt) => {
-    pushState();
-    pageChange();
-});
+import axios from 'axios';
 
 //---------------------------------------
 // Events
 //---------------------------------------
 // 進むボタンクリック
 document.querySelector('.content--next').addEventListener('click', (evt) => {
-    // 遷移ボタンがaタグの場合はリンク遷移取り消し
-    preventLinkEvent(evt);
+    const targetPageUrl = evt.target.getAttribute("data-href");
+    pushState(targetPageUrl);
+    pageChange(targetPageUrl);
 });
 
 // 戻るボタンクリック
 document.querySelector('.content--back').addEventListener('click', (evt) => {
-    // 遷移ボタンがaタグの場合はリンク遷移取り消し
-    preventLinkEvent(evt);
+    const targetPageUrl = evt.target.getAttribute("data-href");
+    pushState(targetPageUrl);
+    pageChange(targetPageUrl);
 });
 
 // popstate
 if (window.history && window.history.pushState){
     window.addEventListener("popstate", (event) => {
-        if (!event.originalEvent.state) return;
-        const state = event.originalEvent.state;
+        console.log(event);
+        if (!event.state.targetPageUrl) return;
+        const state = event.state.targetPageUrl;
+        pushState(state);
+        pageChange(state);
     });
 }
 
@@ -34,22 +33,40 @@ if (window.history && window.history.pushState){
 //---------------------------------------
 // function
 //---------------------------------------
-// pushState操作
-function pushState(){
-    const targetPageUrl = evt.target.getAttribute("href");
-    const pageId = targetPageUrl.split(".")[0];
-    const state = {"targetPageUrl": targetPageUrl};
-    history.pushState(state, pageId, targetPageUrl);
+// pushState(履歴追加)
+function pushState(url){
+    const pageId = url.split(".")[0];
+    const state = { "targetPageUrl" : url };
+    history.pushState(state, pageId, url);
 }
 // ページ切り替え演出
 function pageChange(url) {
-    // 必要なところをロード
-    $("#wrapper").on('load',"#loadimg", ()=> {
-        
+    // 既存の差し込み要素の操作
+    const curLoadList =  document.querySelectorAll(".load");
+    for(let elm of curLoadList){
+        elm.classList.add("out");
+    }
+    // 読み込み
+    axios.get(url, {
+        responseType: 'document'
     })
-
-    // 切り替え演出
-    document.querySelector('.content').classList.add('fadeout');
+    .then((response) => {
+        const page = response.data;
+        // 差し込み用に要素追加
+        const wrapper = document.querySelector("#loadwrapper");
+        const newElmList = page.querySelectorAll((".load"));
+        for(let elm of newElmList){
+            wrapper.appendChild(elm);
+        }
+        return;
+    })
+    .then(() => {
+        // 差し替え
+        const outDomList = document.querySelectorAll(".out");
+        for(let elm of outDomList){
+            elm.parentNode.removeChild(elm);
+        }
+    })
 }
 // aタグの遷移防止
 function preventLinkEvent(evt) {
