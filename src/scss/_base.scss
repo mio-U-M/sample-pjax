@@ -4,23 +4,55 @@ body {
 }
 .button-area{
     text-align: center;
+    padding: 10px 0;
 }
-.content1{
+.content{
     margin: 0 auto;
-    padding: 40px 0;
+    padding-bottom: 40px;
 }
 .content1--img{
-    width: 100%;
-    height: 500px;
+    @include common-headerImg;
     background: url("/image/sample1.png") no-repeat center bottom;
-    background-size: cover;
 }
-.content1--ttl{
+.content2--img{
+    @include common-headerImg;
+    background: url("/image/sample2.png") no-repeat center bottom;
+}
+.content3--img{
+    @include common-headerImg;
+    background: url("/image/sample3.png") no-repeat center bottom;
+}
+.content4--img{
+    @include common-headerImg;
+    background: url("/image/sample4.png") no-repeat center bottom;
+}
+.content--ttl{
+    font-size: 40px;
+    font-family: 'Anton', sans-serif;
     text-align: center;
     height: 100px;
     line-height: 100px;
 }
-.content1--txt{
+.content--txt{
+    font-family: 'PT Serif', serif;
     width: 75%;
     margin: 0 auto;
+}
+.content--back{
+    @include link-style-reset;
+    font-family: 'PT Serif', serif;
+    font-size: 25px;
+    padding: 10px 20px;
+    &:hover{
+        opacity: .6;
+    }
+}
+.content--next{
+    @include link-style-reset;
+    font-family: 'PT Serif', serif;
+    font-size: 25px;
+    padding: 10px 20px;
+    &:hover{
+        opacity: .6;
+    }
 }
