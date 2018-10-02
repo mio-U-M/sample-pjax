@@ -1,8 +1,6 @@
 {
-  "name": "kayac-html5-starter",
+  "name": "starter",
   "version": "0.0.0",
-  "description": "kayac-html5-starter development.",
-  "author": "Kayac Inc.",
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode production --progress",
